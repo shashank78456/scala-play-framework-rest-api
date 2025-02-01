@@ -12,8 +12,8 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class ToDoController @Inject()(controllerComponents: ControllerComponents, todoService: ToDoService)(implicit executionContext: ExecutionContext) extends AbstractController(controllerComponents) {
 
-  def getAll(): Action[AnyContent] = Action.async { implicit request =>
-    todoService.getAll().map { todos =>
+  def getAll: Action[AnyContent] = Action.async { implicit request =>
+    todoService.getAll.map { todos =>
       Ok(Json.toJson(todos))
     }
   }
@@ -25,7 +25,7 @@ class ToDoController @Inject()(controllerComponents: ControllerComponents, todoS
     }
   }
 
-  def create(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def create: Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[Todo].fold(
       _ => Future.successful(BadRequest(Json.obj("error" -> "Invalid JSON"))),
       todo => {

@@ -7,9 +7,9 @@ import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ToDoService @Inject()(todoRepository: TodoRepository)(implicit executionContext: ExecutionContext) {
-  def getAll(): Future[Seq[Todo]] = todoRepository.getAll()
+  def getAll: Future[Seq[Todo]] = todoRepository.getAll
 
-  def getById(id: Long): Future[Option[Todo]] = todoRepository.getByid(id)
+  def getById(id: Long): Future[Option[Todo]] = todoRepository.getById(id)
 
   def create(todo: Todo): Future[Todo] = todoRepository.create(todo)
 
